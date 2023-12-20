@@ -3,15 +3,23 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
+struct sockaddr_in* createIPV4Address(char *ip, int port);
+
+int createTCPIpv4Socket();
+
 int main () {
 
-  int socketFD = socket(AF_INET, SOCK_STREAM, 0);
+  int socketFD = createTCPIpv4Socket();
 
-char* ip = "142.250.188.46";
+struct sockaddr_in address = createIPV4Address(NULL, 0)
+
+
+/*char* ip = "142.250.188.46";
 struct sockaddr_in address;
 address.sin_family = AF_INET;
 address.sin_port = htons(80);
 inet_pton(AF_INET,ip,&address.sin_addr.s_addr);
+*/
 
 
 int result = connect(socketFD,&address, sizeof address);
@@ -30,3 +38,7 @@ printf("Response was %s\n ", buffer);
 
   return 0;
 } 
+
+int createTCPIpv4Socket() {
+  return socket(AF_INET, SOCK_STREAM, 0);
+}
